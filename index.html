@@ -447,10 +447,12 @@ function renderQuestions() {
   if (q.scale) {
     var scaleWrap = el("div", {className:"scale-wrap"});
     [1,2,3,4,5].forEach(function(v) {
-      var active = ans[state.qIdx] === v;
-      var btn = el("div", {
+      var currentQIdx = state.qIdx;
+      var active = ans[currentQIdx] === v;
+      var btn = el("button", {
         className: "scale-btn" + (active?" active":""),
-        onClick: function(){answerScale(v);}
+        style: {cursor:"pointer"},
+        onClick: function(e){ e.preventDefault(); answerScale(v); }
       },
         el("div", {className:"scale-num", style:{color:active?dObj.color:"#9C9C9C"}}, String(v)),
         el("div", {className:"scale-lbl"}, SCALE_LABELS[v-1])
@@ -470,7 +472,7 @@ function renderQuestions() {
       var active = ans["c"+state.qIdx] === opt;
       var btn = el("button", {
         className: "choice-btn" + (active?" active":""),
-        onClick: function(){answerChoice(opt);}
+        onClick: function(e){ e.preventDefault(); answerChoice(opt); }
       }, opt);
       choicesDiv.appendChild(btn);
     });
