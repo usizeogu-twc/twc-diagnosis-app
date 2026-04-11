@@ -4,37 +4,456 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Whole Life Diagnosis - The Wellbeing Cognoscente</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%;font-family:"DM Sans",sans-serif;background:#F5F2ED;-webkit-font-smoothing:antialiased}
-    @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:"DM Sans",sans-serif;background:#F5F2ED;min-height:100vh;-webkit-font-smoothing:antialiased}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
     @keyframes spin{to{transform:rotate(360deg)}}
     @keyframes pulse{0%,100%{opacity:0.7}50%{opacity:1}}
-    .page{animation:fadeUp 0.35s ease both;max-width:620px;margin:0 auto;padding:0 20px 80px}
-    .logo-wrap{text-align:center;padding:36px 0 24px}
-    .logo{height:76px;object-fit:contain}
-    .tagline{font-size:11px;color:#009C84;letter-spacing:3px;text-transform:uppercase;margin-top:10px;font-weight:500}
-    .card{background:#FAFAF8;border-radius:18px;padding:28px 32px;margin-bottom:16px;box-shadow:0 2px 24px rgba(0,120,100,0.06);border:1px solid #C5EBE5}
-    .card-soft{background:#E8F7F4;border-radius:18px;padding:24px 28px;margin-bottom:16px;border:1px solid #C5EBE5}
-    h1{font-size:26px;color:#484848;font-weight:700;line-height:1.3;margin-bottom:12px;font-family:"Cormorant Garamond",serif}
-    h2{font-size:22px;color:#484848;font-weight:700;line-height:1.35;margin-bottom:10px;font-family:"Cormorant Garamond",serif}
-    p{font-size:14px;color:#6C6C6C;line-height:1.8;margin-bottom:10px}
-    .divider{height:1px;background:#C5EBE5;margin:18px 0}
-    .btn-primary{display:block;width:100%;padding:15px 24px;border-radius:10px;border:none;background:#009C84;color:white;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background 0.18s,transform 0.18s;text-align:center}
-    .btn-primary:hover{background:#007A68;transform:translateY(-1px)}
-    .btn-primary:disabled{opacity:0.45;cursor:not-allowed;transform:none}
-    .btn-ghost{padding:10px 20px;border-radius:8px;border:1.5px solid #009C84;background:transparent;color:#009C84;font-family:"DM Sans",sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.18s}
-    .btn-ghost:hover{background:rgba(0,156,132,0.06)}
-    .step-row{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px}
-    .step-num{width:26px;height:26px;border-radius:50%;background:#009C84;color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}
-    .step-title{font-size:13.5px;font-weight:600;color:#484848;margin-bottom:2px}
-    .step-desc{font-size:12px;color:#9C9C9C;line-height:1.6}
-    .domain-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
-    .domain-card{padding:14px 16px;border-radius:12px;cursor:pointer;border:1.5px solid #E0E0E0;background:#FAFAF8;position:relative;box-shadow:0 1px 4px rgba(0,0,0,0.04);transition:all 0.16s}
-    .domain-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,156,132,0.13)}
-    .domain-icon{font-size:18px;margin-bottom:4px}
+    .page{animation:fadeUp 0.3s ease both;max-width:600px;margin:0 auto;padding:0 20px 80px}
+    .logo-wrap{text-align:center;padding:32px 0 20px}
+    .logo{height:72px;object-fit:contain}
+    .tagline{font-size:11px;color:#009C84;letter-spacing:3px;text-transform:uppercase;margin-top:8px;font-weight:500}
+    .card{background:#FAFAF8;border-radius:16px;padding:26px 30px;margin-bottom:14px;box-shadow:0 2px 20px rgba(0,120,100,0.06);border:1px solid #C5EBE5}
+    .card-soft{background:#E8F7F4;border-radius:16px;padding:22px 26px;margin-bottom:14px;border:1px solid #C5EBE5}
+    h1{font-size:24px;color:#484848;font-weight:700;line-height:1.3;margin-bottom:10px;font-family:"Cormorant Garamond",serif}
+    h2{font-size:20px;color:#484848;font-weight:700;line-height:1.35;margin-bottom:10px;font-family:"Cormorant Garamond",serif}
+    p{font-size:14px;color:#6C6C6C;line-height:1.8;margin-bottom:8px}
+    .divider{height:1px;background:#C5EBE5;margin:16px 0}
+    .btn-primary{display:block;width:100%;padding:14px 20px;border-radius:10px;border:none;background:#009C84;color:white;font-size:14px;font-weight:600;cursor:pointer;text-align:center;font-family:"DM Sans",sans-serif;margin-top:8px}
+    .btn-primary:hover{background:#007A68}
+    .btn-primary:disabled{opacity:0.4;cursor:not-allowed}
+    .btn-ghost{padding:10px 20px;border-radius:8px;border:1.5px solid #009C84;background:transparent;color:#009C84;font-size:13px;cursor:pointer;font-family:"DM Sans",sans-serif;display:block;margin:8px auto 0}
+    .step-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px}
+    .step-num{width:24px;height:24px;border-radius:50%;background:#009C84;color:white;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:2px}
+    .step-title{font-size:13px;font-weight:600;color:#484848;margin-bottom:1px}
+    .step-desc{font-size:11px;color:#9C9C9C;line-height:1.5}
+    .domain-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+    .domain-card{padding:13px 14px;border-radius:12px;cursor:pointer;border:1.5px solid #E0E0E0;background:#FAFAF8;position:relative;transition:all 0.15s;user-select:none}
+    .domain-card:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,156,132,0.1)}
+    .domain-icon{font-size:16px;margin-bottom:3px}
+    .domain-label{font-size:12px;font-weight:600;color:#484848;margin-bottom:2px}
+    .domain-desc{font-size:10px;color:#9C9C9C;line-height:1.35}
+    .domain-tick{position:absolute;top:7px;right:7px;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;color:white;font-weight:700}
+    .pill{display:inline-flex;align-items:center;padding:3px 10px;border-radius:16px;font-size:11px;font-weight:600;margin:2px 4px 2px 0}
+    .progress-wrap{margin-bottom:20px}
+    .progress-row{display:flex;justify-content:space-between;margin-bottom:5px}
+    .progress-bar{height:4px;background:#C5EBE5;border-radius:2px;overflow:hidden}
+    .progress-fill{height:100%;background:#009C84;border-radius:2px;transition:width 0.3s ease}
+    .q-tag{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:16px;margin-bottom:14px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600}
+    .q-text{font-size:18px;color:#484848;line-height:1.5;margin-bottom:22px;font-weight:700;font-family:"Cormorant Garamond",serif}
+    .scale-wrap{display:flex;gap:6px;margin-bottom:5px}
+    .scale-btn{flex:1;padding:12px 4px;border-radius:10px;border:1.5px solid #E0E0E0;background:#FAFAF8;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;font-family:"DM Sans",sans-serif;transition:all 0.12s}
+    .scale-btn:hover{border-color:#009C84;background:#E8F7F4}
+    .scale-num{font-size:16px;font-weight:700;color:#9C9C9C}
+    .scale-lbl{font-size:8px;color:#9C9C9C;text-align:center;line-height:1.2}
+    .scale-ends{display:flex;justify-content:space-between;margin-top:3px;font-size:10px;color:#9C9C9C}
+    .choice-btn{width:100%;padding:12px 16px;border-radius:10px;margin-bottom:7px;border:1.5px solid #E0E0E0;background:#FAFAF8;text-align:left;cursor:pointer;font-size:13px;color:#6C6C6C;font-family:"DM Sans",sans-serif;line-height:1.45;transition:all 0.12s}
+    .choice-btn:hover{border-color:#009C84;background:#E8F7F4;color:#484848}
+    .loading-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh}
+    .loading-inner{text-align:center;padding:0 20px}
+    .spinner{width:40px;height:40px;border:3px solid #C5EBE5;border-top:3px solid #009C84;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 20px}
+    .report-label{font-size:10px;letter-spacing:2px;color:#009C84;text-transform:uppercase;margin-bottom:7px;font-weight:600}
+    .report-headline{font-size:20px;color:#484848;font-weight:700;line-height:1.4;border-left:4px solid #009C84;padding-left:16px;margin-bottom:14px;font-family:"Cormorant Garamond",serif}
+    .domain-row{padding:11px 14px;border-radius:9px;margin-bottom:7px}
+    .domain-row-name{font-size:11px;font-weight:600;margin-bottom:2px;letter-spacing:0.4px}
+    .domain-row-text{font-size:12px;color:#6C6C6C;line-height:1.5}
+    .root-cause{font-size:15px;color:#484848;line-height:1.7;font-family:"Cormorant Garamond",serif;font-style:italic}
+    .rec-box{padding:14px 18px;border-radius:10px;margin-bottom:4px}
+    .rec-title{font-size:13px;font-weight:600;margin-bottom:3px}
+    .rec-desc{font-size:12px;color:#6C6C6C;line-height:1.55}
+    .cta-box{padding:24px 28px;border-radius:14px;background:#009C84;text-align:center;margin-bottom:14px}
+    .cta-h{font-size:18px;font-weight:700;color:white;margin-bottom:7px;font-family:"Cormorant Garamond",serif}
+    .cta-p{font-size:13px;color:rgba(255,255,255,0.88);margin-bottom:16px;line-height:1.6}
+    .cta-btn{padding:12px 28px;border-radius:8px;background:white;color:#009C84;font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:"DM Sans",sans-serif}
+    .cta-btn:hover{background:#007A68;color:white}
+    .secondary-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+    .small{font-size:12px;color:#9C9C9C;line-height:1.5}
+    @media(max-width:480px){.domain-grid{grid-template-columns:1fr}.scale-wrap{gap:4px}}
+  </style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+var LOGO = "https://www.usi101.com/wp-content/uploads/go-x/u/d6b4e7da-8a3b-4f02-91ff-9e9e555f55fa/l83,t16,w639,h639/image.png";
+var CALENDLY = "https://calendly.com/thewellbeingcognoscente";
+var WEBSITE  = "https://www.usi101.com";
+var EMAIL    = "support@thewellbeingc.com";
+
+var DOMAINS = [
+  {id:"identity",      label:"Identity & Self",      icon:"❋", desc:"Who you are, your sense of self, purpose and direction",  color:"#009C84"},
+  {id:"career",        label:"Career & Purpose",     icon:"◈", desc:"Work, ambition, meaning in what you do professionally",  color:"#4A6A8C"},
+  {id:"relationships", label:"Relationships",         icon:"❧", desc:"Partnerships, friendships, family, connection",         color:"#4A8C70"},
+  {id:"health",        label:"Physical Health",       icon:"◉", desc:"Body, energy, movement, sleep, nutrition",              color:"#B85042"},
+  {id:"mental",        label:"Mental & Emotional",    icon:"◎", desc:"Mind, emotions, stress, clarity, inner peace",          color:"#007A68"},
+  {id:"financial",     label:"Financial",             icon:"◇", desc:"Money, security, relationship with wealth",             color:"#9C7A2A"},
+  {id:"environment",   label:"Environment",           icon:"❁", desc:"Space, surroundings, the people you spend time with",  color:"#4A8C70"},
+  {id:"contribution",  label:"Contribution & Legacy", icon:"✦", desc:"Impact, giving back, what you leave behind",           color:"#4A6A8C"}
+];
+var SCALE_LABELS = ["Not at all","Rarely","Sometimes","Often","Completely"];
+var PHASE_COLORS = ["#B85042","#4A8C70","#4A6A8C"];
+var PHASE_NAMES  = ["Reset Audit","Architecture","Sustainable Rhythms"];
+var URGENCY_MAP  = {
+  high:{label:"High Urgency",color:"#B85042"},
+  medium:{label:"Significant Need",color:"#9C7A2A"},
+  low:{label:"Growth Focus",color:"#4A8C70"}
+};
+var DQ = {
+  identity:[
+    {q:"How clearly can you articulate who you are, separate from your job, role, or relationships?",scale:true},
+    {q:"How often do you make decisions that feel genuinely aligned with your values?",scale:true},
+    {q:"Which best describes where you are right now?",options:["I have outgrown the identity I built and know it no longer fits","I feel unclear about who I am and what I stand for","I have an identity but it feels performative, not real","External events have disrupted my sense of self"]}
+  ],
+  career:[
+    {q:"How much of your work feels purposeful and aligned with who you are?",scale:true},
+    {q:"How often does your work energise rather than drain you?",scale:true},
+    {q:"Which resonates most?",options:["I am successful but feel hollow. The career worked, the meaning did not","I have outgrown this role but do not know what is next","I am in the wrong field but feel trapped","My business has grown but I am shrinking inside it"]}
+  ],
+  relationships:[
+    {q:"How well do your closest relationships support who you are becoming?",scale:true},
+    {q:"How much energy do your key relationships give vs. take?",scale:true},
+    {q:"Which feels most true right now?",options:["I have changed but my relationships have not caught up","I am surrounded by people but feel deeply alone","I am staying in relationships that no longer fit to avoid conflict","A key relationship ending has disrupted my whole sense of self"]}
+  ],
+  health:[
+    {q:"How well does your physical energy support the life you want to live?",scale:true},
+    {q:"How consistent are you with physical practices that matter to you?",scale:true},
+    {q:"Which best describes your situation?",options:["I start health habits but can never sustain them","My body feels like a symptom of everything else being wrong","I have neglected my health for so long I do not know where to start","I am physically active but still feel depleted and exhausted"]}
+  ],
+  mental:[
+    {q:"How much mental clarity and inner calm do you experience in a typical week?",scale:true},
+    {q:"How effectively do you process difficult emotions without them derailing you?",scale:true},
+    {q:"Which resonates most?",options:["I overthink everything and my mind works against me","I feel anxious or low much of the time but cannot pinpoint why","I have been through something significant and have not fully processed it","I numb out rather than face what I am actually feeling"]}
+  ],
+  financial:[
+    {q:"How aligned is your relationship with money to your actual values?",scale:true},
+    {q:"How secure and in control do you feel about your financial life?",scale:true},
+    {q:"Which feels most true?",options:["I earn well but spend in ways that do not reflect what I care about","Financial anxiety is a constant background noise in my life","I avoid thinking about money because it brings shame or fear","I have wealth but it has not brought the peace or meaning I expected"]}
+  ],
+  environment:[
+    {q:"How well does your physical space support focus, calm, and who you want to be?",scale:true},
+    {q:"How intentional are the people, inputs, and rhythms in your daily environment?",scale:true},
+    {q:"Which best describes it?",options:["My environment was designed for a version of me that no longer exists","I am surrounded by noise, clutter, or people that drain my energy","My calendar controls me and I have no protected space for what matters","The digital world constantly pulls me from my real priorities"]}
+  ],
+  contribution:[
+    {q:"How much does your daily life feel connected to something larger than yourself?",scale:true},
+    {q:"How clearly can you articulate the legacy or impact you want to leave?",scale:true},
+    {q:"Which resonates?",options:["I have been so focused on achieving that I have lost sight of why it matters","I want to give back but do not know how to make it real in my life","Success feels hollow because it is not connected to purpose","I have not had space to think about legacy. I am just surviving"]}
+  ]
+};
+
+var S = {screen:"welcome",domains:[],dIdx:0,qIdx:0,answers:{},report:null,loading:"Reading your responses..."};
+
+function rgba(hex,a){var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return "rgba("+r+","+g+","+b+","+a+")";}
+function mk(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e;}
+
+function render(){
+  var app=document.getElementById("app");
+  app.innerHTML="";
+  if(S.screen==="welcome")app.appendChild(pageWelcome());
+  else if(S.screen==="domains")app.appendChild(pageDomains());
+  else if(S.screen==="questions")app.appendChild(pageQuestions());
+  else if(S.screen==="loading")app.appendChild(pageLoading());
+  else if(S.screen==="report")app.appendChild(pageReport());
+  window.scrollTo(0,0);
+}
+
+function logoWrap(h){
+  var w=mk("div","logo-wrap");
+  var img=mk("img");img.src=LOGO;img.alt="The Wellbeing Cognoscente";img.style.height=(h||72)+"px";img.style.objectFit="contain";
+  w.appendChild(img);
+  return w;
+}
+
+function pageWelcome(){
+  var p=mk("div","page");
+  var lw=logoWrap(72);lw.appendChild(mk("div","tagline","Whole Life Integration"));p.appendChild(lw);
+  var c=mk("div","card");
+  c.appendChild(mk("h1","","Find out exactly where you are and what you need next."));
+  c.appendChild(mk("p","","This is not a generic wellness quiz. It is a guided diagnostic built on the TWC Whole Life Integration Model, the same framework our practitioners use with every client."));
+  c.appendChild(mk("div","divider"));
+  [["1","Choose your most urgent life areas","Select 1 to 5 domains that feel most alive or most stuck right now"],
+   ["2","Answer 3 targeted questions per area","Specific questions that go beneath the surface symptoms"],
+   ["3","Receive your personalised report","A real analysis of what is happening and the exact path forward"]
+  ].forEach(function(s){
+    var r=mk("div","step-row");
+    r.appendChild(mk("div","step-num",s[0]));
+    var i=mk("div");i.appendChild(mk("div","step-title",s[1]));i.appendChild(mk("div","step-desc",s[2]));
+    r.appendChild(i);c.appendChild(r);
+  });
+  var btn=mk("button","btn-primary","Begin Your Diagnosis");
+  btn.addEventListener("click",function(){S.screen="domains";render();});
+  c.appendChild(btn);
+  c.appendChild(mk("p","small","Takes 5 to 7 minutes. Your responses are private."));
+  p.appendChild(c);return p;
+}
+
+function pageDomains(){
+  var p=mk("div","page");
+  var lw=logoWrap(52);lw.style.paddingTop="24px";p.appendChild(lw);
+  var c=mk("div","card");
+  c.appendChild(mk("h2","","Which areas feel most urgent right now?"));
+  var intro=mk("p");intro.innerHTML="Choose <strong style='color:#009C84'>1 to 5 domains</strong> that feel most alive, most stuck, or most in need of attention.";
+  c.appendChild(intro);
+  var g=mk("div","domain-grid");
+  DOMAINS.forEach(function(d){
+    var sel=S.domains.indexOf(d.id)>=0;
+    var card=mk("div","domain-card");
+    if(sel){card.style.borderColor=d.color;card.style.background=rgba(d.color,0.07);var tk=mk("div","domain-tick","✓");tk.style.background=d.color;card.appendChild(tk);}
+    card.appendChild(mk("div","domain-icon",d.icon));
+    card.appendChild(mk("div","domain-label",d.label));
+    card.appendChild(mk("div","domain-desc",d.desc));
+    card.addEventListener("click",(function(id){return function(){
+      var i=S.domains.indexOf(id);
+      if(i>=0)S.domains.splice(i,1);
+      else if(S.domains.length<5)S.domains.push(id);
+      render();
+    };})(d.id));
+    g.appendChild(card);
+  });
+  c.appendChild(g);
+  if(S.domains.length>0){
+    var info=mk("div");info.style.marginBottom="12px";
+    info.appendChild(mk("div","small",S.domains.length+" domain"+(S.domains.length!==1?"s":"")+" selected"+(S.domains.length===5?" (maximum)":"")));
+    var pills=mk("div");pills.style.marginTop="5px";
+    S.domains.forEach(function(id){
+      var d=DOMAINS.find(function(x){return x.id===id;});
+      var pill=mk("span","pill",d.label);
+      pill.style.background=rgba(d.color,0.12);pill.style.border="1.5px solid "+rgba(d.color,0.35);pill.style.color=d.color;
+      pills.appendChild(pill);
+    });
+    info.appendChild(pills);c.appendChild(info);
+  }
+  var btn=mk("button","btn-primary",S.domains.length>0?"Continue - "+(S.domains.length*3)+" questions":"Select at least one domain");
+  btn.disabled=S.domains.length===0;
+  btn.addEventListener("click",function(){if(S.domains.length>0){S.dIdx=0;S.qIdx=0;S.screen="questions";render();}});
+  c.appendChild(btn);p.appendChild(c);return p;
+}
+
+function pageQuestions(){
+  var domId=S.domains[S.dIdx];
+  var dObj=DOMAINS.find(function(d){return d.id===domId;});
+  var qs=DQ[domId]||[];
+  var q=qs[S.qIdx];
+  var ans=S.answers[domId]||{};
+  var totalQs=S.domains.reduce(function(a,d){return a+(DQ[d]?DQ[d].length:0);},0);
+  var doneQs=S.domains.slice(0,S.dIdx).reduce(function(a,d){return a+(DQ[d]?DQ[d].length:0);},0)+S.qIdx;
+  var pct=totalQs?Math.round((doneQs/totalQs)*100):0;
+
+  var p=mk("div","page");
+  var lw=logoWrap(44);lw.style.paddingTop="20px";p.appendChild(lw);
+
+  var pw=mk("div","progress-wrap");
+  var pr=mk("div","progress-row");
+  var pl=mk("span","",dObj.label);pl.style.fontSize="12px";pl.style.fontWeight="600";pl.style.color=dObj.color;
+  var pp=mk("span","",pct+"% complete");pp.style.fontSize="12px";pp.style.color="#9C9C9C";
+  pr.appendChild(pl);pr.appendChild(pp);pw.appendChild(pr);
+  var pb=mk("div","progress-bar");var pf=mk("div","progress-fill");pf.style.width=pct+"%";pb.appendChild(pf);pw.appendChild(pb);
+  p.appendChild(pw);
+
+  var c=mk("div","card");
+  var tag=mk("div","q-tag",dObj.icon+" "+dObj.label);
+  tag.style.background=rgba(dObj.color,0.1);tag.style.border="1px solid "+rgba(dObj.color,0.25);tag.style.color=dObj.color;
+  c.appendChild(tag);
+  c.appendChild(mk("div","q-text",q.q));
+
+  if(q.scale){
+    var sw=mk("div","scale-wrap");
+    for(var v=1;v<=5;v++){
+      (function(val){
+        var active=ans[S.qIdx]===val;
+        var btn=mk("button","scale-btn");btn.type="button";
+        if(active){btn.style.borderColor=dObj.color;btn.style.background=rgba(dObj.color,0.1);}
+        var num=mk("div","scale-num",String(val));num.style.color=active?dObj.color:"#9C9C9C";
+        var lbl=mk("div","scale-lbl",SCALE_LABELS[val-1]);
+        btn.appendChild(num);btn.appendChild(lbl);
+        btn.addEventListener("click",(function(v2){return function(){
+          if(!S.answers[domId])S.answers[domId]={};
+          S.answers[domId][S.qIdx]=v2;
+          doAdvance();
+        };})(val));
+        sw.appendChild(btn);
+      })(v);
+    }
+    c.appendChild(sw);
+    var ends=mk("div","scale-ends");ends.appendChild(mk("span","","Struggling"));ends.appendChild(mk("span","","Thriving"));
+    c.appendChild(ends);
+  } else {
+    q.options.forEach(function(opt){
+      var active=ans["c"+S.qIdx]===opt;
+      var btn=mk("button","choice-btn",opt);btn.type="button";
+      if(active){btn.style.borderColor=dObj.color;btn.style.background=rgba(dObj.color,0.08);btn.style.color="#484848";}
+      btn.addEventListener("click",(function(o){return function(){
+        if(!S.answers[domId])S.answers[domId]={};
+        S.answers[domId]["c"+S.qIdx]=o;
+        doAdvance();
+      };})(opt));
+      c.appendChild(btn);
+    });
+  }
+  p.appendChild(c);
+  var back=mk("button","btn-ghost","Back to domains");back.type="button";
+  back.addEventListener("click",function(){S.screen="domains";render();});
+  p.appendChild(back);
+  return p;
+}
+
+function doAdvance(){
+  var qs=DQ[S.domains[S.dIdx]]||[];
+  if(S.qIdx<qs.length-1){S.qIdx++;render();}
+  else if(S.dIdx<S.domains.length-1){S.dIdx++;S.qIdx=0;render();}
+  else{runReport();}
+}
+
+function pageLoading(){
+  var w=mk("div","loading-wrap");
+  var i=mk("div","loading-inner");
+  var img=mk("img");img.src=LOGO;img.style.height="64px";img.style.objectFit="contain";img.style.marginBottom="24px";img.style.animation="pulse 2s ease-in-out infinite";
+  i.appendChild(img);i.appendChild(mk("div","spinner"));
+  i.appendChild(mk("h2","loading-msg",S.loading));
+  i.appendChild(mk("p","","Our practitioner model is reading your responses and preparing your personalised integration report."));
+  w.appendChild(i);return w;
+}
+
+function pageReport(){
+  var r=S.report;if(!r)return mk("div");
+  var pc=PHASE_COLORS[(r.phase||1)-1];
+  var ub=URGENCY_MAP[r.urgency]||URGENCY_MAP.medium;
+  var p=mk("div","page");
+  var lw=logoWrap(72);lw.appendChild(mk("div","tagline","Your Integration Report"));p.appendChild(lw);
+
+  var c1=mk("div","card");
+  c1.appendChild(mk("div","report-label","What we see in you"));
+  c1.appendChild(mk("div","report-headline",'"'+r.headline+'"'));
+  c1.appendChild(mk("p","",r.insight));
+  p.appendChild(c1);
+
+  var c2=mk("div","card");c2.appendChild(mk("div","report-label","Your domain picture"));
+  (r.selectedDomains||[]).forEach(function(id,i){
+    var dObj=DOMAINS.find(function(x){return x.id===id;})||DOMAINS[i%DOMAINS.length];
+    var cd=r.domains?r.domains[i]:null;
+    var summary=cd&&cd.summary&&cd.summary.trim().length>10?cd.summary.trim():"This domain shows significant misalignment and will be a priority focus in your integration work.";
+    var row=mk("div","domain-row");row.style.background=rgba(dObj.color,0.08);row.style.borderLeft="3px solid "+dObj.color;
+    var nm=mk("div","domain-row-name",dObj.icon+"  "+dObj.label);nm.style.color=dObj.color;
+    row.appendChild(nm);row.appendChild(mk("div","domain-row-text",summary));
+    c2.appendChild(row);
+  });
+  p.appendChild(c2);
+
+  var c3=mk("div","card-soft");c3.appendChild(mk("div","report-label","The underlying pattern"));c3.appendChild(mk("p","root-cause",r.rootCause));p.appendChild(c3);
+
+  var c4=mk("div","card");c4.appendChild(mk("div","report-label","Your recommended path"));
+  var pills=mk("div");pills.style.marginBottom="12px";
+  [["Phase "+r.phase+" - "+PHASE_NAMES[(r.phase||1)-1],pc],[ub.label,ub.color]].forEach(function(x){
+    var pill=mk("span","pill",x[0]);pill.style.background=rgba(x[1],0.1);pill.style.border="1.5px solid "+rgba(x[1],0.35);pill.style.color=x[1];pills.appendChild(pill);
+  });
+  c4.appendChild(pills);c4.appendChild(mk("p","",r.recommendation));
+  var rb=mk("div","rec-box");rb.style.background=rgba(pc,0.07);rb.style.border="1px solid "+rgba(pc,0.25);
+  var rt=mk("div","rec-title",r.programmeTitle);rt.style.color=pc;rb.appendChild(rt);rb.appendChild(mk("div","rec-desc",r.programmeDesc));
+  c4.appendChild(rb);p.appendChild(c4);
+
+  var cta=mk("div","cta-box");
+  cta.appendChild(mk("div","cta-h","Your next step"));
+  cta.appendChild(mk("p","cta-p",r.ctaLine));
+  var cb=mk("button","cta-btn","Book Your Free Discovery Call");cb.type="button";
+  cb.addEventListener("click",function(){window.open(CALENDLY,"_blank");});
+  cta.appendChild(cb);p.appendChild(cta);
+
+  var c5=mk("div","card");c5.style.textAlign="center";c5.style.padding="18px 24px";
+  c5.appendChild(mk("p","small","Not ready to book? Explore TWC or retake the diagnosis."));
+  var sr=mk("div","secondary-row");
+  var b1=mk("button","btn-ghost","Explore TWC");b1.type="button";b1.addEventListener("click",function(){window.open(WEBSITE,"_blank");});
+  var b2=mk("button","btn-ghost","Start Again");b2.type="button";b2.addEventListener("click",function(){S.screen="welcome";S.domains=[];S.dIdx=0;S.qIdx=0;S.answers={};S.report=null;render();});
+  sr.appendChild(b1);sr.appendChild(b2);c5.appendChild(sr);p.appendChild(c5);
+  p.appendChild(mk("p","small","2026 The Wellbeing Cognoscente  .  "+EMAIL));
+  return p;
+}
+
+function runReport(){
+  S.screen="loading";render();
+  var msgs=["Reading your responses...","Mapping your integration landscape...","Building your personal profile...","Identifying your recommended path...","Preparing your report..."];
+  var mi=0;
+  var iv=setInterval(function(){
+    mi=(mi+1)%msgs.length;S.loading=msgs[mi];
+    var el=document.querySelector(".loading-msg");if(el)el.textContent=S.loading;
+  },1500);
+  var routing=routeToPhase(S.answers,S.domains);
+  var summary=S.domains.map(function(d){
+    var dObj=DOMAINS.find(function(x){return x.id===d;});
+    var ans=S.answers[d]||{};
+    var lines=DQ[d].map(function(q,i){
+      if(q.scale){var v=ans[i];return"  Q: "+q.q+"\n  A: "+(v!=null?SCALE_LABELS[v-1]:"No answer")+" ("+v+"/5)";}
+      return"  Q: "+q.q+"\n  A: "+(ans["c"+i]||"No answer");
+    }).join("\n");
+    return"DOMAIN: "+dObj.label+"\n"+lines;
+  }).join("\n\n");
+  var domainLabels = S.domains.map(function(d){
+    return DOMAINS.find(function(x){return x.id===d;}).label;
+  });
+  var promptParts = [
+    "You are a warm insightful practitioner at The Wellbeing Cognoscente (TWC).",
+    "TWC model: Phase 1=Reset Audit, Phase 2=Architecture, Phase 3=Sustainable Rhythms.",
+    "Client answers:",
+    summary,
+    "Routing: Phase " + routing.phase + ", urgency: " + routing.urgency + ".",
+    "Return ONLY raw JSON starting with { and ending with }.",
+    "The JSON must have these exact keys: headline, insight, domains, rootCause, recommendation, phase, tier, urgency, programmeTitle, programmeDesc, ctaLine.",
+    "For headline: a powerful 10-15 word sentence capturing what you see in this client.",
+    "For insight: 2-3 sentences referencing their actual scores.",
+    "For domains: an array with one object per selected domain. Each object has name (the domain label) and summary (2 specific sentences about what this client revealed in that domain).",
+    "Domain labels to use: " + domainLabels.join(", "),
+    "For rootCause: 1-2 sentences on the underlying theme.",
+    "For recommendation: 2-3 sentences naming Phase " + routing.phase + ".",
+    "For phase: the number " + routing.phase + ".",
+    "For tier: " + routing.tier,
+    "For urgency: " + routing.urgency,
+    "For programmeTitle: a specific TWC programme name.",
+    "For programmeDesc: one sentence describing what this delivers for this client.",
+    "For ctaLine: a warm personal invitation to book a 30-minute discovery call."
+  ];
+  var prompt = promptParts.join("\n");
+  fetch("/api/diagnose",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({prompt:prompt})})
+  .then(function(r){return r.json();})
+  .then(function(data){
+    clearInterval(iv);
+    var parsed=JSON.parse((data.result||"").replace(/```json|```/g,"").trim());
+    parsed.routing=routing;parsed.selectedDomains=S.domains.slice();
+    S.report=parsed;S.screen="report";render();
+  }).catch(function(){
+    clearInterval(iv);
+    S.report={
+      headline:"Your life is asking for a different kind of attention.",
+      insight:"Across your chosen domains, a consistent pattern of misalignment is visible. Not failure, but growth that has outpaced the structure around you.",
+      domains:S.domains.map(function(d){var o=DOMAINS.find(function(x){return x.id===d;});return{name:o.label,summary:"Your answers in this domain reveal significant misalignment that will be a priority focus in your integration work.";};}),
+      rootCause:"Your identity has evolved but the systems around you have not caught up. That gap is where the friction lives.",
+      recommendation:"We recommend beginning with Phase 1: Reset Audit — a full diagnostic that maps exactly where the misalignment is.",
+      phase:routing.phase,tier:routing.tier,urgency:routing.urgency,
+      programmeTitle:"Reset Audit + 12-Week Integration Architecture",
+      programmeDesc:"A full whole-life diagnostic followed by a bespoke integration system designed around who you actually are.",
+      ctaLine:"Book a free 30-minute Discovery Call. We would love to talk through what you have shared.",
+      routing:routing,selectedDomains:S.domains.slice()
+    };
+    S.screen="report";render();
+  });
+}
+
+function routeToPhase(answers,domains){
+  var scores=domains.map(function(d){
+    var qs=answers[d]||{};var vals=[];
+    Object.keys(qs).forEach(function(k){if(k.charAt(0)!=="c"&&typeof qs[k]==="number")vals.push(qs[k]);});
+    return{domain:d,score:vals.length?vals.reduce(function(a,b){return a+b;},0)/vals.length:2};
+  });
+  var avg=scores.reduce(function(a,b){return a+b.score;},0)/scores.length;
+  var lowest=scores.slice().sort(function(a,b){return a.score-b.score;}).slice(0,2).map(function(s){return s.domain;});
+  if(avg<=2.0)return{phase:1,tier:"premium",urgency:"high",lowestDomains:lowest};
+  if(avg<=3.2)return{phase:1,tier:"core",urgency:"medium",lowestDomains:lowest};
+  return{phase:2,tier:"core",urgency:"low",lowestDomains:lowest};
+}
+
+render();
+</script>
+</body>
+</html>    .domain-icon{font-size:18px;margin-bottom:4px}
     .domain-label{font-size:13px;font-weight:600;color:#484848;margin-bottom:2px}
     .domain-desc{font-size:11px;color:#9C9C9C;line-height:1.4}
     .domain-tick{position:absolute;top:8px;right:8px;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:white;font-weight:700}
